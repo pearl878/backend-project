@@ -1,0 +1,991 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EduAdmin | Dashboard</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --bg: #0b0d19;
+    --sidebar: #101323;
+    --card: #171b30;
+    --card2: #1c2038;
+    --border: #282d49;
+    --text: #f5f6ff;
+    --muted: #9299b8;
+    --purple: #7762ff;
+    --teal: #26b99a;
+    --blue: #4e8cff;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 230px;
+    background: var(--sidebar);
+    border-right: 1px solid #20243b;
+    padding: 25px 16px;
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+    transition: 0.3s;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 10px;
+    margin-bottom: 42px;
+}
+
+.logo-icon {
+    width: 38px;
+    height: 38px;
+    display: grid;
+    place-items: center;
+    border-radius: 11px;
+    background: linear-gradient(135deg, #7b61ff, #4e8cff);
+    font-size: 19px;
+    font-weight: 700;
+}
+
+.logo h2 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    letter-spacing: -0.8px;
+}
+
+.logo h2 span {
+    color: #8c79ff;
+}
+
+.menu-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #656d8b;
+    padding: 0 12px;
+    margin-bottom: 13px;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.nav a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    color: #a4abc6;
+    font-size: 13px;
+    font-weight: 500;
+    text-decoration: none;
+    border-radius: 9px;
+    transition: 0.25s;
+    cursor: pointer;
+}
+
+.nav a:hover,
+.nav a.active {
+    background: #222541;
+    color: white;
+}
+
+.nav a.active {
+    box-shadow: inset 3px 0 #8069ff;
+}
+
+.nav-icon {
+    font-size: 17px;
+    width: 20px;
+    text-align: center;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+    padding: 15px 10px 0;
+}
+
+.help-card {
+    background: linear-gradient(145deg, #1b2340, #211d45);
+    border: 1px solid #33365c;
+    border-radius: 13px;
+    padding: 16px;
+}
+
+.help-card h4 {
+    font-size: 12px;
+    margin-bottom: 8px;
+}
+
+.help-card p {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.6;
+    margin-bottom: 13px;
+}
+
+.help-card button {
+    border: none;
+    background: #7762ff;
+    color: white;
+    padding: 9px;
+    width: 100%;
+    border-radius: 7px;
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.main {
+    flex: 1;
+    min-width: 0;
+    padding: 27px 32px;
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 33px;
+    gap: 15px;
+}
+
+.page-title h1 {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 23px;
+    font-weight: 600;
+    letter-spacing: -0.6px;
+}
+
+.page-title p {
+    color: var(--muted);
+    font-size: 12px;
+    margin-top: 5px;
+}
+
+.top-actions {
+    display: flex;
+    align-items: center;
+    gap: 17px;
+}
+
+.icon-btn {
+    width: 37px;
+    height: 37px;
+    display: grid;
+    place-items: center;
+    background: #181c30;
+    border: 1px solid #292e48;
+    color: white;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 10px 5px 5px;
+    border: 1px solid #292e48;
+    border-radius: 30px;
+    background: #171b30;
+    cursor: pointer;
+}
+
+.avatar {
+    width: 31px;
+    height: 31px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: linear-gradient(135deg, #7663ff, #ae65ec);
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.profile span {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.section-heading h2 {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.section-heading p {
+    color: var(--muted);
+    font-size: 11px;
+    margin-top: 4px;
+}
+
+.portal-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+    margin-bottom: 23px;
+}
+
+.portal-card {
+    position: relative;
+    overflow: hidden;
+    min-height: 205px;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    background: var(--card);
+    padding: 23px;
+    transition: 0.3s;
+}
+.portal-cards {
+    position: relative;
+    overflow: hidden;
+    min-height: 205px;
+    border: 1px solid var(--border);
+    border-radius: 15px;
+    background: var(--card);
+    padding: 23px;
+    transition: 0.3s;
+}
+
+.portal-cards:hover {
+    transform: translateY(-4px);
+    border-color: #57d862;
+    box-shadow: 0 12px 35px #05050e70;
+}
+.portal-card:hover {
+    transform: translateY(-4px);
+    border-color: #6457d8;
+    box-shadow: 0 12px 35px #05050e70;
+}
+
+.portal-card::before {
+    content: "";
+    position: absolute;
+    width: 115px;
+    height: 115px;
+    border-radius: 50%;
+    right: -40px;
+    top: -40px;
+    opacity: 0.17;
+}
+.portal-cards::before {
+    content: "";
+    position: absolute;
+    width: 115px;
+    height: 115px;
+    border-radius: 50%;
+    right: -40px;
+    top: -40px;
+    opacity: 0.17;
+}
+
+.teacher::before {
+    background: #27c9a5;
+}
+
+.student::before {
+    background: #7961ff;
+}
+
+.portal-icon {
+    width: 39px;
+    height: 39px;
+    border-radius: 11px;
+    display: grid;
+    place-items: center;
+    font-size: 19px;
+    margin-bottom: 16px;
+}
+
+.teacher .portal-icon {
+    color: #4be0bf;
+    background: #1c4d4a;
+}
+
+.student .portal-icon {
+    color: #b7a9ff;
+    background: #353064;
+}
+
+.portal-card h3 {
+    font-size: 15px;
+    margin-bottom: 7px;
+}
+.portal-cards h3 {
+    font-size: 15px;
+    margin-bottom: 7px;
+}
+
+.portal-card p {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.6;
+    max-width: 250px;
+}
+.portal-cards p {
+    color: var(--muted);
+    font-size: 11px;
+    line-height: 1.6;
+    max-width: 250px;
+}
+
+.portal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    margin-top: 20px;
+}
+
+.portal-count strong {
+    font-size: 21px;
+    display: block;
+    font-family: 'Space Grotesk', sans-serif;
+}
+.portal-counts strong {
+    font-size: 21px;
+    display: block;
+    font-family: 'Space Grotesk', sans-serif;
+}
+
+.portal-count span {
+    font-size: 10px;
+    color: var(--muted);
+}
+.portal-counts span {
+    font-size: 10px;
+    color: var(--teal);
+}
+
+.open-btn {
+    border: none;
+    padding: 9px 15px;
+    border-radius: 7px;
+    color: white;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.teacher .open-btn {
+    background: #218f7c;
+}
+
+.student .open-btn {
+    background: #7159ee;
+}
+
+.open-btn:hover {
+    filter: brightness(1.2);
+    transform: scale(1.03);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 13px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    padding: 17px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    min-width: 0;
+    transition: 0.25s;
+}
+
+.stat-card:hover {
+    border-color: #4b4e79;
+    background: var(--card2);
+}
+
+.stat-title {
+    color: #a2a8c3;
+    font-size: 11px;
+    margin-bottom: 12px;
+}
+
+.stat-value {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 23px;
+    font-weight: 600;
+    margin-bottom: 7px;
+}
+
+.stat-note {
+    font-size: 10px;
+    color: #44c9a7;
+}
+
+.stat-note.purple {
+    color: #a18bff;
+}
+
+.activity-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 21px;
+    overflow: hidden;
+}
+
+.activity-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.activity-top h2 {
+    font-size: 15px;
+}
+
+.activity-top a {
+    color: #9e8aff;
+    font-size: 11px;
+    text-decoration: none;
+}
+
+.table-wrap {
+    overflow-x: auto;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    min-width: 540px;
+    text-align: left;
+}
+
+th {
+    font-size: 10px;
+    font-weight: 500;
+    color: #777f9e;
+    padding: 12px 10px;
+    border-bottom: 1px solid #292d47;
+}
+
+td {
+    font-size: 11px;
+    color: #c6cbe0;
+    padding: 15px 10px;
+    border-bottom: 1px solid #252941;
+}
+
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+tbody tr:hover {
+    background: #1c2037;
+}
+
+.tag {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 6px;
+    font-size: 10px;
+}
+
+.tag.teacher-tag {
+    background: #123e3c;
+    color: #53d5b5;
+}
+
+.tag.student-tag {
+    background: #302a5b;
+    color: #b5a5ff;
+}
+
+.tag.admin-tag {
+    background: #3c304b;
+    color: #e0a9ff;
+}
+
+.mobile-menu {
+    display: none;
+}
+
+.content-section {
+    display: none;
+}
+
+.content-section.active {
+    display: block;
+}
+
+.empty-content {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 35px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.empty-content h2 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.empty-content p {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+@media (max-width: 1000px) {
+    .sidebar {
+        width: 195px;
+    }
+
+    .main {
+        padding: 24px 20px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 700px) {
+    .sidebar {
+        position: fixed;
+        z-index: 20;
+        top: 0;
+        bottom: 0;
+        left: -240px;
+        width: 230px;
+    }
+
+    .sidebar.show {
+        left: 0;
+    }
+
+    .mobile-menu {
+        display: grid;
+    }
+
+    .main {
+        padding: 20px 15px;
+    }
+
+    .topbar {
+        margin-bottom: 25px;
+    }
+
+    .page-title h1 {
+        font-size: 19px;
+    }
+
+    .portal-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .portal-card {
+        min-height: 190px;
+    }
+
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .stat-card {
+        padding: 13px;
+    }
+
+    .stat-value {
+        font-size: 20px;
+    }
+
+    .profile span {
+        display: none;
+    }
+}
+
+@media (max-width: 380px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="layout">
+
+    <aside class="sidebar" id="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">E</div>
+            <h2>Edu<span>Admin</span></h2>
+        </div>
+
+        <p class="menu-label">MENU</p>
+
+        <nav class="nav">
+
+            <a class="active" data-page="dashboard">
+                
+                Dashboard
+            </a>
+
+            <a data-page="classes">
+              
+                Classes
+            </a>
+
+            <a data-page="timetable">
+              
+                Timetable
+            </a>
+
+            <a data-page="reports">
+                
+                Reports
+            </a>
+
+            <a data-page="settings">
+              
+                Settings
+            </a>
+
+        </nav>
+
+        
+
+    </aside>
+
+    <main class="main">
+
+        <header class="topbar">
+
+            <div style="display:flex;align-items:center;gap:13px;">
+                <button class="icon-btn mobile-menu" onclick="toggleSidebar()">☰</button>
+
+                <div class="page-title">
+                    <h1 id="welcomeTitle">Welcome back,Admin</h1>
+                    <p id="pageSubtitle">Open a portal to manage teachers or student.</p>
+                </div>
+            </div>
+
+            <div class="top-actions">
+
+               
+
+                <div class="profile" onclick="showProfile()">
+                    <div class="avatar" id="avatar">AD</div>
+                    <span id="profileName">Admin</span>
+                    <span style="color:#858ba7">⌄</span>
+                </div>
+
+            </div>
+
+        </header>
+
+        <section class="content-section active" id="dashboard">
+
+            <div class="section-heading">
+                <div>
+                    <h2>Portals</h2>
+                    <p>Choose a portal to get started.</p>
+                </div>
+            </div>
+
+            <div class="portal-grid">
+
+                <div class="portal-cards teacher">
+
+                    <div class="portal-icon">▣</div>
+
+                    <h3>Teacher Portal</h3>
+
+                    <p>Lesson plans, attendance, grading and class management.</p>
+
+                    <div class="portal-footer">
+                        <div class="portal-counts">
+                            <strong>48</strong>
+                            <span>Active teachers</span>
+                        </div>
+
+                       <a href="login.html">
+                         <button class="open-btn" onclick="openPortal('teacher')" >
+                            Open portal
+                        </button>
+                       </a>
+                    </div>
+
+                </div>
+
+                <div class="portal-card student">
+
+                    <div class="portal-icon">▣</div>
+
+                    <h3>Student Portal</h3>
+
+                    <p>Course results, assignments and learning resources.</p>
+
+                    <div class="portal-footer">
+                        <div class="portal-count">
+                            <strong>1,240</strong>
+                            <span>Enrolled students</span>
+                        </div>
+
+                        <a href="login.html">
+                            <button class="open-btn" onclick="openPortal('student')">
+                            Open portal
+                        </button>
+                        </a>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="section-heading">
+                <div>
+                    <h2>School Overview</h2>
+                    <p>Key performance indicators.</p>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+
+                <div class="stat-card">
+                    <div class="stat-title">Attendance Today</div>
+                    <div class="stat-value">94%</div>
+                    <div class="stat-note">↑ 2.5% this week</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-title">Classes Running</div>
+                    <div class="stat-value">36</div>
+                    <div class="stat-note purple">4 starting soon</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-title">Pending Results</div>
+                    <div class="stat-value">12</div>
+                    <div class="stat-note">Due Friday</div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-title">Fees Collected</div>
+                    <div class="stat-value">82%</div>
+                    <div class="stat-note">↑ 6% this term</div>
+                </div>
+
+            </div>
+
+            <div class="activity-card">
+
+                <div class="activity-top">
+                    <h2>Recent Activity</h2>
+                    <a href="#" onclick="alert('Showing all recent activity.');return false;">View all →</a>
+                </div>
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Portal</th>
+                                <th>Action</th>
+                                <th>Time</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td>Mrs. Adeyemi</td>
+                                <td><span class="tag teacher-tag">Teacher</span></td>
+                                <td>Uploaded JSS2 maths scores</td>
+                                <td>10 min ago</td>
+                            </tr>
+
+                            <tr>
+                                <td>Chinedu Okafor</td>
+                                <td><span class="tag student-tag">Student</span></td>
+                                <td>Submitted physics assignment</td>
+                                <td>32 min ago</td>
+                            </tr>
+
+                            <tr>
+                                <td>Mr. Bello</td>
+                                <td><span class="tag teacher-tag">Teacher</span></td>
+                                <td>Marked attendance for SS1</td>
+                                <td>1 hr ago</td>
+                            </tr>
+
+                            <tr>
+                                <td>Amira Yusuf</td>
+                                <td><span class="tag student-tag">Student</span></td>
+                                <td>Viewed term results</td>
+                                <td>2 hr ago</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <section class="content-section" id="classes">
+            <div class="empty-content">
+                <h2>Classes</h2>
+                <p>View your classes, subjects and learning activities here.</p>
+            </div>
+        </section>
+
+        <section class="content-section" id="timetable">
+            <div class="empty-content">
+                <h2>Timetable</h2>
+                <p>Your class schedule and upcoming lessons will appear here.</p>
+            </div>
+        </section>
+
+        <section class="content-section" id="reports">
+            <div class="empty-content">
+                <h2>Reports</h2>
+                <p>View your academic progress and school reports here.</p>
+            </div>
+        </section>
+
+        <section class="content-section" id="settings">
+            <div class="empty-content">
+                <h2>Settings</h2>
+                <p>Manage your account preferences and portal settings.</p>
+            </div>
+        </section>
+
+    </main>
+
+</div>
+
+<script>
+const navLinks = document.querySelectorAll(".nav a");
+const sections = document.querySelectorAll(".content-section");
+
+const pageInfo = {
+    dashboard: {
+        title: "Welcome back!",
+        subtitle: "Here's an overview of your school dashboard."
+    },
+    classes: {
+        title: "Classes",
+        subtitle: "Manage your classes and learning activities."
+    },
+    timetable: {
+        title: "Timetable",
+        subtitle: "Keep track of your school schedule."
+    },
+    reports: {
+        title: "Reports",
+        subtitle: "Review your academic performance."
+    },
+    settings: {
+        title: "Settings",
+        subtitle: "Manage your account preferences."
+    }
+};
+
+navLinks.forEach(link => {
+    link.addEventListener("click", () => {
+        const page = link.dataset.page;
+
+        navLinks.forEach(item => item.classList.remove("active"));
+        link.classList.add("active");
+
+        sections.forEach(section => {
+            section.classList.remove("active");
+        });
+
+        document.getElementById(page).classList.add("active");
+
+        document.getElementById("welcomeTitle").textContent =
+            pageInfo[page].title;
+
+        document.getElementById("pageSubtitle").textContent =
+            pageInfo[page].subtitle;
+
+        document.getElementById("sidebar").classList.remove("show");
+    });
+});
+
+function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("show");
+}
+
+
+
+function showProfile() {
+    const name = document.getElementById("profileName").textContent;
+    alert("Logged in as: " + name);
+}
+
+// Display the logged-in student's name if it was saved.
+const savedStudent = localStorage.getItem("student");
+
+if (savedStudent) {
+    try {
+        const student = JSON.parse(savedStudent);
+
+        if (student.name) {
+            document.getElementById("welcomeTitle").textContent =
+                "Welcome back, " + student.name.split(" ")[0] + "!";
+
+            document.getElementById("profileName").textContent =
+                student.name;
+
+            document.getElementById("avatar").textContent =
+                student.name.charAt(0).toUpperCase();
+        }
+    } catch (error) {
+        console.error("Could not load student profile:", error);
+    }
+}
+</script>
+
+</body>
+</html>
